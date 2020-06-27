@@ -40,6 +40,7 @@ public class PauseMenu : MonoBehaviour
     {
         AudioManager.instance.Play("click");
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         mouseLook.enabled = true;
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
@@ -49,6 +50,7 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
         Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         mouseLook.enabled = false;
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
@@ -60,7 +62,6 @@ public class PauseMenu : MonoBehaviour
     {
         AudioManager.instance.Play("click");
         StartCoroutine(titleRoutine());
-        
     }
 
     public void Quit()
@@ -71,9 +72,9 @@ public class PauseMenu : MonoBehaviour
     IEnumerator titleRoutine()
     {
         yield return new WaitForSecondsRealtime(0.2f);
-        Time.timeScale = 1f;
         GameIsPaused = false;
         SceneManager.LoadSceneAsync("StartScreen");
+        Time.timeScale = 1f;
     }
 
     IEnumerator quitRoutine()

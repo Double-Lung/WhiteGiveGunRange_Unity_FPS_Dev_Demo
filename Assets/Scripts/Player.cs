@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,6 +24,9 @@ public class Player : MonoBehaviour, IDamage
     private PlayerInputClass _pi;
     private WeaponController _currentWeapon;
     private bool hasWeapon = false;
+
+    public event Action OnAddScore;
+
     private void Awake()
     {
         _currentHealth = _maxHealth;
@@ -61,6 +65,10 @@ public class Player : MonoBehaviour, IDamage
                 }else if (hit.transform.tag == "Radio")
                 {
                     hit.transform.GetComponent<Radio>().useRadio();
+                    if (_score == 350) {
+                        _score = 114000;
+                        UIManager.instance.updateScore(_score);
+                    }
                 }
             }
         }
@@ -151,6 +159,9 @@ public class Player : MonoBehaviour, IDamage
     public void addScore(int amount)
     {
         _score += amount;
+        if (_score == 114514) {
+            OnAddScore();
+        }
         UIManager.instance.updateScore(_score);
     }
 

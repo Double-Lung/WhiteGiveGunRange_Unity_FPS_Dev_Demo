@@ -19,6 +19,7 @@ public class MouseLook : MonoBehaviour
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         _pi = new PlayerInputClass();
         _cameras = transform.Find("CameraHolder");
         if (_cameras == null)
